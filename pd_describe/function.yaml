@@ -1,0 +1,71 @@
+kind: job
+metadata:
+  name: pd-describe
+  tag: ''
+  hash: f5b42a7f486a5fb485ca81bc6352625223264f3a
+  project: default
+spec:
+  command: ''
+  args: []
+  image: mlrun/mlrun
+  build:
+    functionSourceCode: aW1wb3J0IG1scnVuCmltcG9ydCBwYW5kYXMgYXMgcGQKCmRlZiBwZF9kZXNjcmliZSgKICAgIGNvbnRleHQ6IG1scnVuLk1MQ2xpZW50Q3R4LAogICAgZGF0YTogbWxydW4uRGF0YUl0ZW0sCikgLT4gTm9uZToKICAgICIiIgogICAgU2FtcGxlIGZ1bmN0aW9uIHRvIGxvZyBhIGRlc2NyaXB0aW9uIG9mIGEgcGFuZGFzIGRhdGFmcmFtZS4KCiAgICA6cGFyYW0gY29udGV4dDogTUxSdW4gQ29udGV4dAogICAgOnBhcmFtIGRhdGE6ICAgIE1MUnVuIGlucHV0IHBvaW50aW5nIHRvIHBhbmRhcyBkYXRhZnJhbWUgKGNzdi9wYXJxdWV0IGZpbGUgcGF0aCkKICAgICIiIgogICAgIyBMb2FkIGRhdGEgZnJvbSBEYXRhSXRlbQogICAgZGYgPSBkYXRhLmFzX2RmKCkKICAgIAogICAgIyBQYW5kYXMgZGVzY3JpYmUKICAgIGRlc2NyaWJlID0gZGYuZGVzY3JpYmUoKQogICAgCiAgICAjIExvZyBkZXNjcmliZWQgZGF0YXNldAogICAgY29udGV4dC5sb2dfZGF0YXNldChrZXk9ImRhdGFzZXRfZGVzY3JpYmVkIiwgZGY9ZGVzY3JpYmUp
+    commands: []
+    code_origin: https://github.com/igz-us-sales/simple-marketplace.git#a9021aafd907a30533448001fec97aa13b214323:pd_describe.py
+    origin_filename: pd_describe.py
+  entry_points:
+    pd_describe:
+      name: pd_describe
+      doc: Sample function to log a description of a pandas dataframe.
+      parameters:
+      - name: context
+        type: MLClientCtx
+        doc: MLRun Context
+        default: ''
+      - name: data
+        type: DataItem
+        doc: MLRun input pointing to pandas dataframe (csv/parquet file path)
+        default: ''
+      outputs:
+      - default: ''
+      lineno: 4
+  description: ''
+  default_handler: pd_describe
+  disable_auto_mount: false
+  env:
+  - name: V3IO_API
+    value: ''
+  - name: V3IO_USERNAME
+    value: ''
+  - name: V3IO_ACCESS_KEY
+    value: ''
+  - name: V3IO_FRAMESD
+    value: ''
+  resources:
+    requests:
+      memory: 1Mi
+      cpu: 25m
+    limits:
+      memory: 20Gi
+      cpu: '2'
+  priority_class_name: igz-workload-medium
+  preemption_mode: prevent
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: app.iguazio.com/lifecycle
+            operator: NotIn
+            values:
+            - preemptible
+          - key: eks.amazonaws.com/capacityType
+            operator: NotIn
+            values:
+            - SPOT
+          - key: node-lifecycle
+            operator: NotIn
+            values:
+            - spot
+  tolerations: null
+verbose: false
